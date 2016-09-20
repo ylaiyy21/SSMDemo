@@ -1,12 +1,7 @@
 package com.maxplus.serviceImpl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.maxplus.dao.UserDao;
 import com.maxplus.pojo.User;
@@ -20,15 +15,19 @@ public class UserServiceImpl implements UserServiceInf {
 	
 	@Override
 	public int addUser(User user) {
-		// TODO Auto-generated method stub
-		return 0;
+		return userDao.addUser(user);
 	}
 
 	@Override
 	public User getUser(String id) {
-		// TODO Auto-generated method stub
-		System.out.println(id);
 		return userDao.getUser(id);
+	}
+
+	@Override
+	public int updateUser(User user) {
+		// TODO Auto-generated method stub
+		int a = userDao.updateUser(user);
+		return a;
 	}
 
 }

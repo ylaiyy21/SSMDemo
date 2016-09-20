@@ -14,5 +14,35 @@
           SELECT * from User 
           WHERE id = #{id}
     </select>
+    
+    
+    <insert id="addUser" parameterType="user">
+    	insert into User(id,code,name,password) values(#{id},#{code},#{name},#{password});
+    </insert>
+    
+    <update id="updateUser" parameterType="user">
+<!--     	update User  -->
+    	
+<!--     	set  -->
+<!--     	code=#{code}, -->
+<!--     	name=#{name}, -->
+<!--     	password=#{password}  -->
+<!--     	where id = #{id} -->
+			update User 
+			<set>
+				<if test="null != code and '' != code">
+					code=#{code},
+				</if>
+				<if test="null != name and '' != name">
+					name=#{name},
+				</if>
+				<if test="null != password and '' != password">
+					password=#{password}
+				</if>
+			</set>
+			<where>
+				id=#{id}
+			</where>
+    </update>
        
 </mapper>  

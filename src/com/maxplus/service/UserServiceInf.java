@@ -6,4 +6,6 @@ public interface UserServiceInf {
 	int addUser(User user);
 	
 	User getUser(String id);
+	
+	int updateUser(User user);
 }

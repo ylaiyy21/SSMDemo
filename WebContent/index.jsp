@@ -14,10 +14,16 @@
 		{{login.name}}
 
 		<div>
-			账号：<input type="text" ng-model="login.code">
+			ID：<input type="text" ng-model="login.user.id">
 		</div>
 		<div>
-			密码：<input type="password" ng-model="login.password">
+			账号：<input type="text" ng-model="login.user.code">
+		</div>
+		<div>
+			姓名：<input type="text" ng-model="login.user.name">
+		</div>
+		<div>
+			密码：<input type="password" ng-model="login.user.password">
 		</div>
 		<div ng-click="login.login();">GET</div>
 		<div ng-click="login.regit();">POST</div>
@@ -32,9 +38,11 @@
 <script>
 	var app = angular.module('myapp', []);
 	app.controller('loginController', function($http) {
-		var l = 'http://localhost:8080/SpringMVC/login';
+		var l = 'http://localhost:9090/SSMDemo/login';
 		var id = 1;
 
+		this.user = {};
+		
 		this.name = "jack";
 		this.login = function() {
 			$http.get(
@@ -46,14 +54,10 @@
 			});
 		}
 
-		var user = {
-			code : '1123',
-			name : '刘流',
-			password : '1123'
-		}
+		
 
 		this.regit = function() {
-			$http.post(l, angular.fromJson(user)).success(function(result) {
+			$http.post(l, angular.fromJson(this.user)).success(function(result) {
 				console.log(result);
 			}).error(function(result) {
 				console.log(result);
@@ -63,7 +67,7 @@
 
 		this.update = function() {
 
-			$http.post(l + '/update?id=' + id, user).success(function(result) {
+			$http.post(l + '/update?id=' + id, this.user).success(function(result) {
 				console.log(result);
 			}).error(function(result) {
 				console.log(result);

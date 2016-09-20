@@ -1,8 +1,5 @@
 package com.maxplus.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.maxplus.pojo.User;
 import com.maxplus.service.UserServiceInf;
-import com.maxplus.serviceImpl.UserServiceImpl;
 
 import net.sf.json.JSONObject;
 
@@ -30,7 +26,9 @@ public class LoginController {
 		System.out.println(code + "," + password);
 		JSONObject json = new JSONObject();
 		User user = new User();
+		user.setId(Integer.parseInt(code));
 		user.setCode(code);
+		user.setName(password);
 		user.setPassword(password);
 		int count = userService.addUser(user);
 		json.put("count", count);
@@ -69,6 +67,7 @@ public class LoginController {
 	public String updateUser(@RequestParam String id, @RequestBody User user) {
 		System.out.println(id + "," + user.getName());
 		JSONObject json = new JSONObject();
+		json.put("user", userService.updateUser(user));
 		return json.toString();
 	}
 

@@ -27,38 +27,50 @@
 	
 	<!-- 自动加载bean扫描路径 -->
 	<context:component-scan base-package="com.maxplus.*" />
+
+	<!-- 	<context:property-placeholder location="classpath:jdbc.properties"/> -->
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+      <property name="locations" value="classpath:jdbc.properties"/>
+    </bean>
 	
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/ssm?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull" />
-        <property name="username" value="root" />
-        <property name="password" value="root" />
+		<property name="driverClassName" value="${jdbc.drivename}" />
+        <property name="url" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
 	</bean>
-	
-	<tx:annotation-driven/>
 
-	  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-	  	
-	    <property name="dataSource" ref="dataSource" />
-	    <!-- configLocation 配置mybatis的总配置文件 -->
-	    <property name="configLocation" value="classpath:mybatis-config.xml"></property>
-<!-- 	    <property name="mapperLocations" value="classpath:mybatis-config.xml"></property> -->
-	  </bean>
-	
-	  <!-- DAO接口所在包名，Spring会自动查找其下的类 -->
-	  <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-<!-- 	    <property name="annotationClass" value="org.springframework.stereotype.Repository"/>   -->
-	    <property name="basePackage" value="com.maxplus.dao" />
-	    <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
-	  </bean>
-	
-<!-- 	<context:property-placeholder location="classpath:jdbc.properties"/> -->
-	
-	<bean id="user" class="com.maxplus.pojo.User">
-		<property name="name" value="${name}"></property>
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		
+	  <property name="dataSource" ref="dataSource" />
+	  <!-- configLocation 配置mybatis的总配置文件 -->
+		    <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+	<!-- 	    <property name="mapperLocations" value="classpath:mybatis-config.xml"></property> -->
 	</bean>
 	
+	<!-- DAO接口所在包名，Spring会自动查找其下的类 -->
+		  <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	<!-- 	    <property name="annotationClass" value="org.springframework.stereotype.Repository"/>   -->
+	  <property name="basePackage" value="com.maxplus.dao" />
+	  <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+	</bean>
 	
+	<!-- 配置事务 -->
+	<bean id="tx_manager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<!--  应用事务 -->
+	<tx:advice id="tx_advice" transaction-manager="tx_manager">
+		<tx:attributes>
+			<tx:method name="*" propagation="REQUIRED" rollback-for="Exception"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config proxy-target-class="true">
+		<aop:advisor advice-ref="tx_advice" pointcut="execution(* com.maxplus.service.*.*(..))" order="2"/>
+	</aop:config>
 
 </beans>
