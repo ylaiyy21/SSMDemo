@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	   xmlns:jee="http://www.springframework.org/schema/jee"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xmlns:task="http://www.springframework.org/schema/task"
+
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd"
+	default-lazy-init="false">
+
+	<description>Spring公共配置</description>
+
+	<context:annotation-config />
+	
+	<!-- 自动加载bean扫描路径 -->
+	<context:component-scan base-package="com.maxplus.*" />
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/ssm?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull" />
+        <property name="username" value="root" />
+        <property name="password" value="root" />
+	</bean>
+	
+	<tx:annotation-driven/>
+
+	  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	  	
+	    <property name="dataSource" ref="dataSource" />
+	    <!-- configLocation 配置mybatis的总配置文件 -->
+	    <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+<!-- 	    <property name="mapperLocations" value="classpath:mybatis-config.xml"></property> -->
+	  </bean>
+	
+	  <!-- DAO接口所在包名，Spring会自动查找其下的类 -->
+	  <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+<!-- 	    <property name="annotationClass" value="org.springframework.stereotype.Repository"/>   -->
+	    <property name="basePackage" value="com.maxplus.dao" />
+	    <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+	  </bean>
+	
+<!-- 	<context:property-placeholder location="classpath:jdbc.properties"/> -->
+	
+	<bean id="user" class="com.maxplus.pojo.User">
+		<property name="name" value="${name}"></property>
+	</bean>
+	
+	
+
+</beans>

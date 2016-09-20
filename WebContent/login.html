@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<body ng-app="myapp">
+	<div ng-model="name">
+	</div>
+</body>
+<script>
+	var app = angular.module('myapp',[]);
+	app.controller('loginController',function($scope){
+		$scope.name = "tom";
+	});
+	
+</script>
+</html>
