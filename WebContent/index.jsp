@@ -43,6 +43,9 @@
 
 		this.user = {};
 		
+		this.code = '1221';
+		this.password = '111';
+		
 		this.name = "jack";
 		this.login = function() {
 			$http.get(

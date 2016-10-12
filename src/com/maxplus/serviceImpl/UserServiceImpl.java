@@ -16,6 +16,7 @@ public class UserServiceImpl implements UserServiceInf {
 	@Override
 	public int addUser(User user) {
 		return userDao.addUser(user);
+//		return 0;
 	}
 
 	@Override
