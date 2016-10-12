@@ -1,3 +1,0 @@
-SpringMVC+Spring+Mybatis
-======================
-	
