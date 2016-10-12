@@ -72,24 +72,5 @@
 	<aop:config proxy-target-class="true">
 		<aop:advisor advice-ref="tx_advice" pointcut="execution(* com.maxplus.service.*.*(..))" order="2"/>
 	</aop:config>
-	
-	<context:property-placeholder location="classpath:redis.properties" />  
-    <context:component-scan base-package="com.x.redis.dao">
-    </context:component-scan>
-    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">  
-        <property name="maxIdle" value="${redis.maxIdle}" />  
-        <property name="maxActive" value="${redis.maxActive}" />  
-        <property name="maxWait" value="${redis.maxWait}" />  
-        <property name="testOnBorrow" value="${redis.testOnBorrow}" />  
-    </bean>  
-      
-    <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"  
-        p:host-name="${redis.host}" p:port="${redis.port}" p:password="${redis.pass}"  p:pool-config-ref="poolConfig"/>  
-      
-    <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">  
-        <property name="connectionFactory"   ref="connectionFactory" />  
-    </bean>         
-      
-    <bean id="userDAO" class="com.x.redis.dao.impl.UserDAOImpl" />   
 
 </beans>
