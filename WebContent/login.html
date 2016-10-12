@@ -5,15 +5,15 @@
 <title>Insert title here</title>
 </head>
 <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
-<body ng-app="myapp">
-	<div ng-model="name">
-	</div>
+<body ng-app="myapp" ng-controller="loginController">
+
+
+<div ng-bind="name"></div>
 </body>
 <script>
-	var app = angular.module('myapp',[]);
-	app.controller('loginController',function($scope){
-		$scope.name = "tom";
-	});
-	
+var app = angular.module('myapp',[]);
+app.controller('loginController',function($scope){
+	$scope.name = "tom";
+});
 </script>
 </html>

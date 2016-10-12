@@ -24,6 +24,11 @@
 		<servlet-name>SpringServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+	<servlet-mapping> 
+		<servlet-name>jsp</servlet-name> 
+		<url-pattern>*.html</url-pattern> 
+	</servlet-mapping>
 
 	<!-- Spring Web MVC框架提供了org.springframework.web.filter.CharacterEncodingFilter用于解决POST方式造成的中文乱码问题 -->
 	<filter>
@@ -40,6 +45,7 @@
 	</filter-mapping>
 
 	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>redisConfig.html</welcome-file>
 	</welcome-file-list>
+	
 </web-app>
