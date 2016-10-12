@@ -23,9 +23,8 @@
 	<servlet-mapping>
 		<servlet-name>SpringServlet</servlet-name>
 		<url-pattern>/</url-pattern>
-	</servlet-mapping>
-
-	<!-- Spring Web MVC框架提供了org.springframework.web.filter.CharacterEncodingFilter用于解决POST方式造成的中文乱码问题 -->
+	</servlet-mapping>	
+	
 	<filter>
 		<filter-name>CharacterEncodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
