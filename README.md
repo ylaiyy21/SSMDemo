@@ -1,9 +1,8 @@
 SpringMVC+Spring+Mybatis+Mysql
 ======================
-####
-```bash
-	--访问静态html资源
 
+```javascript
+####访问静态html资源
    1.web.xml
    	<servlet>
    		<servlet-name>jsp</servlet-name>
