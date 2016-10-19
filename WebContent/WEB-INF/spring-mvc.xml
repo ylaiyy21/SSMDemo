@@ -31,24 +31,27 @@
 	        <bean class="com.maxplus.interceptor.MyInterceptor"></bean>
 	    </mvc:interceptor>        
 	</mvc:interceptors>
+	
+	<!-- 容器默认的DefaultServletHandler处理 所有静态内容与无RequestMapping处理的URL -->
+	<mvc:default-servlet-handler />
 
 	<!-- HandlerMapping -->
-	<bean
-		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
+	<!-- <bean
+		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" /> -->
 
 	<!-- HandlerAdapter -->
-	<bean
-		class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
+	<!-- <bean
+		class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" /> -->
 
 	<!-- ViewResolver -->
-	<bean
+	<!-- <bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.JstlView" />
 		<property name="prefix" value="" />
 		<property name="suffix" value=".jsp" />
-	</bean>
+	</bean> -->
 
-	<bean name="/index" class="com.maxplus.controller.IndexController" />
+	<!-- <bean name="/index" class="com.maxplus.controller.IndexController" /> -->
 
 </beans>
