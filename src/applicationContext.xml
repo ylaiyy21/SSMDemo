@@ -28,11 +28,12 @@
 	<!-- 自动加载bean扫描路径 -->
 	<context:component-scan base-package="com.maxplus.*" />
 
-	<!-- 	<context:property-placeholder location="classpath:jdbc.properties"/> -->
+	<context:property-placeholder location="classpath:*.properties"/>
 
-    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+   <!--  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
       <property name="locations" value="classpath:jdbc.properties"/>
-    </bean>
+    </bean> -->
+    
 	
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
@@ -72,5 +73,7 @@
 	<aop:config proxy-target-class="true">
 		<aop:advisor advice-ref="tx_advice" pointcut="execution(* com.maxplus.service.*.*(..))" order="2"/>
 	</aop:config>
+	
+	<import resource="redis-config.xml" />
 
 </beans>
